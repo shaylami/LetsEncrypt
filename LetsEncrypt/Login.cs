@@ -23,13 +23,16 @@ namespace LetsEncrypt
         public Login()
         {
             InitializeComponent();
+            tbServer.Text = machine;
+            ReadXML();
             CheckUser();
+            
         }
         private void CheckUser()
         {
             if(machine == string.Empty)
             {
-                tbMip.Text = "Machine IP Or Host name is not defined";
+                tbServer.Text = "Machine IP Or Host name is not defined";
             }
             if (userName == string.Empty)
             {
@@ -47,35 +50,35 @@ namespace LetsEncrypt
                 Ping ping = new Ping();
                 PingReply pingReply;
                 //PingReply pingReply = ping.Send(tbIPHost.Text);
-                if (tbMip.Text == string.Empty)
+                if (tbServer.Text == string.Empty)
                 {
                     MessageBox.Show("Please enter IP / Host Name for server name\n");
-                    tbMip.BackColor = Color.CadetBlue;
+                    tbServer.BackColor = Color.CadetBlue;
                     return;
                 }
                 else
                 {
-                    tbMip.BackColor = Color.White;
-                    pingReply = ping.Send(tbMip.Text);
+                    tbServer.BackColor = Color.White;
+                    pingReply = ping.Send(tbServer.Text);
                     if (pingReply.Status == IPStatus.TimedOut)
                     {
-                        MessageBox.Show("No Ping to Src" + tbMip.Text + "\n");
+                        MessageBox.Show("No Ping to " + tbServer.Text + "\n");
                     }
                     else if (pingReply.Status == IPStatus.Success)
                     {
-                        SshClient ssh = new SshClient(tbMip.Text, 22, userName, password);
+                        SshClient ssh = new SshClient(tbServer.Text, 22, userName, password);
                         ssh.Connect();
                         SshCommand sshcmd = ssh.RunCommand("uname");
                         string res = sshcmd.Result;
                         string osTypeHost1 = res;
                         string osType = res;
-                        MessageBox.Show("Server : " + tbMip.Text + "  Ping OK" + " | " + "OS Type : " + res + "\n");
+                        MessageBox.Show("Server : " + tbServer.Text + "  Ping OK" + " | " + "OS Type : " + res + "\n");
                     }
                 }
             }
             catch (Exception ex)
             {
-                logi.LogMessage("Src ping server " + ex.Message);
+                logi.LogMessage("ping server " + ex.Message);
             }
         }
         private void ReadXML()
@@ -97,7 +100,8 @@ namespace LetsEncrypt
                     User = node.SelectSingleNode("User_Name").InnerText;
                     Password = node.SelectSingleNode("Password").InnerText;
                 }
-                tbMuser.Text = userName;
+                tbServer.Text = ServerName;
+                tbMuser.Text = User;
                 tbMPwd.Text = Password;
 
             }
@@ -105,7 +109,7 @@ namespace LetsEncrypt
         public void ServerSet()
         {
             string EncryptPWD;
-            machine = tbMip.Text;
+            machine = tbServer.Text;
             userName = tbMuser.Text;
             password = tbMPwd.Text;
             EncryptPWD = Convert.ToBase64String(Encoding.Unicode.GetBytes(password));
@@ -114,7 +118,8 @@ namespace LetsEncrypt
             writer.Formatting = Formatting.Indented;
             writer.Indentation = 2;
             writer.WriteStartElement("Table");
-            createNode("1",machine ,userName, EncryptPWD, writer);
+            //createNode("1",machine ,userName, EncryptPWD, writer);
+            createNode("1", tbServer.Text, userName, EncryptPWD, writer);
             writer.WriteEndElement();
             writer.WriteEndDocument();
             writer.Close();
@@ -141,7 +146,7 @@ namespace LetsEncrypt
             DialogResult dialogResult = MessageBox.Show("Please be noted that empty row will delete the current data", "Are you sure ?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                tbMip.Clear();
+                tbServer.Clear();
                 tbMuser.Clear();
                 tbMPwd.Clear();
                 ServerSet();
@@ -153,7 +158,7 @@ namespace LetsEncrypt
             }
             else if (dialogResult == DialogResult.No)
             {
-                tbMip.Clear();
+                tbServer.Clear();
                 tbMuser.Clear();
                 tbMPwd.Clear();
                 MessageBox.Show("Machine IP/Host & User Password was Unset \n");

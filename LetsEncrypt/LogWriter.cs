@@ -17,7 +17,7 @@ namespace LetsEncrypt
         {
             try
             {
-                string sFilePath = @"C:\LetsEncryptLog.txt"; //log will saved on local computer
+                string sFilePath = @"C:\\LetsEncryptLogfolder\\LetsEncryptLog.txt"; //log will saved on local computer
                 StreamWriter sw1 = File.AppendText(sFilePath);
                 try
                 {
