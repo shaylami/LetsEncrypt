@@ -96,41 +96,48 @@ namespace LetsEncrypt
         }
         private void RenewCertDomain()
         {
-            string results,results2;
-            SshClient ssh = new SshClient(sname, 22, suser, spwd);
-            if (sname == string.Empty)
+            try
             {
-                return;
-            }
-            else
-            {
-                //rtbResult.AppendText("Please wait....\n");
-                var timeout = TimeSpan.FromSeconds(3);
-                var client = new TcpClient();
-                if (!client.ConnectAsync(sname, 22).Wait(timeout))
+                string results, results2;
+                SshClient ssh = new SshClient(sname, 22, suser, spwd);
+                if (sname == string.Empty)
                 {
-                    rtbResults.AppendText("Unable to Connect please check your IP / Host \n");
-                    ssh.Disconnect();
-                    ssh.Dispose();
                     return;
                 }
                 else
                 {
-                    ssh.Connect();
+                    //rtbResult.AppendText("Please wait....\n");
+                    var timeout = TimeSpan.FromSeconds(3);
+                    var client = new TcpClient();
+                    if (!client.ConnectAsync(sname, 22).Wait(timeout))
+                    {
+                        rtbResults.AppendText("Unable to Connect please check your IP / Host \n");
+                        ssh.Disconnect();
+                        ssh.Dispose();
+                        return;
+                    }
+                    else
+                    {
+                        ssh.Connect();
+                    }
+                    SshCommand sshcc = ssh.RunCommand("service apache2 stop");
+                    results2 = sshcc.Result;
+                    rtbResults.AppendText(results2 + "\n");
+                    SshCommand sshc = ssh.RunCommand("cd letsencrypt/ && ./letsencrypt-auto renew");// certonly --standalone -d " + CBCertList.Text);
+                    results = sshc.Result;
+                    rtbResults.AppendText(results);
+                    SshCommand sshccc = ssh.RunCommand("service apache2 start");
+                    results2 = sshccc.Result;
+                    rtbResults.AppendText(results2 + "\n");
+                    //rtbResult.AppendText("**********************************************************************************************************\n");
+                    logi.LogMessage(sshc.Error);
+                    logi.LogMessage(sshcc.Error);
+                    logi.LogMessage(sshccc.Error);
                 }
-                SshCommand sshcc = ssh.RunCommand("service apache2 stop");
-                results2 = sshcc.Result;
-                rtbResults.AppendText(results2 + "\n");
-                SshCommand sshc = ssh.RunCommand("cd letsencrypt/ && ./letsencrypt-auto renew");// certonly --standalone -d " + CBCertList.Text);
-                results = sshc.Result;
-                rtbResults.AppendText(results);
-                SshCommand sshccc = ssh.RunCommand("service apache2 start");
-                results2 = sshccc.Result;
-                rtbResults.AppendText(results2 + "\n");
-                //rtbResult.AppendText("**********************************************************************************************************\n");
-                logi.LogMessage(sshc.Error);
-                logi.LogMessage(sshcc.Error);
-                logi.LogMessage(sshccc.Error);
+            }
+            catch(Exception ex)
+            {
+                logi.LogMessage(ex.Message);
             }
         }
         public void RunValidation()
