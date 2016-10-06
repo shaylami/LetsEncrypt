@@ -31,10 +31,11 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rtbResults = new System.Windows.Forms.RichTextBox();
             this.btnLoginServer = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnGetCertList = new System.Windows.Forms.Button();
+            this.btnValidateCert = new System.Windows.Forms.Button();
+            this.btnRenewCert = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.CBCertList = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,6 +51,7 @@
             // 
             // rtbResults
             // 
+            this.rtbResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.rtbResults.Location = new System.Drawing.Point(7, 20);
             this.rtbResults.Name = "rtbResults";
             this.rtbResults.ReadOnly = true;
@@ -67,32 +69,35 @@
             this.btnLoginServer.UseVisualStyleBackColor = true;
             this.btnLoginServer.Click += new System.EventHandler(this.btnLoginServer_Click);
             // 
-            // button2
+            // btnGetCertList
             // 
-            this.button2.Location = new System.Drawing.Point(12, 91);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnGetCertList.Location = new System.Drawing.Point(12, 91);
+            this.btnGetCertList.Name = "btnGetCertList";
+            this.btnGetCertList.Size = new System.Drawing.Size(75, 23);
+            this.btnGetCertList.TabIndex = 2;
+            this.btnGetCertList.Text = "Get List";
+            this.btnGetCertList.UseVisualStyleBackColor = true;
+            this.btnGetCertList.Click += new System.EventHandler(this.btnGetCertList_Click);
             // 
-            // button3
+            // btnValidateCert
             // 
-            this.button3.Location = new System.Drawing.Point(93, 91);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnValidateCert.Location = new System.Drawing.Point(93, 91);
+            this.btnValidateCert.Name = "btnValidateCert";
+            this.btnValidateCert.Size = new System.Drawing.Size(75, 23);
+            this.btnValidateCert.TabIndex = 3;
+            this.btnValidateCert.Text = "Validate Cert";
+            this.btnValidateCert.UseVisualStyleBackColor = true;
+            this.btnValidateCert.Click += new System.EventHandler(this.btnValidateCert_Click);
             // 
-            // button4
+            // btnRenewCert
             // 
-            this.button4.Location = new System.Drawing.Point(174, 91);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnRenewCert.Location = new System.Drawing.Point(174, 91);
+            this.btnRenewCert.Name = "btnRenewCert";
+            this.btnRenewCert.Size = new System.Drawing.Size(75, 23);
+            this.btnRenewCert.TabIndex = 4;
+            this.btnRenewCert.Text = "Renew Cert";
+            this.btnRenewCert.UseVisualStyleBackColor = true;
+            this.btnRenewCert.Click += new System.EventHandler(this.btnRenewCert_Click);
             // 
             // button5
             // 
@@ -103,15 +108,24 @@
             this.button5.Text = "button5";
             this.button5.UseVisualStyleBackColor = true;
             // 
+            // CBCertList
+            // 
+            this.CBCertList.FormattingEnabled = true;
+            this.CBCertList.Location = new System.Drawing.Point(19, 154);
+            this.CBCertList.Name = "CBCertList";
+            this.CBCertList.Size = new System.Drawing.Size(192, 21);
+            this.CBCertList.TabIndex = 6;
+            // 
             // LetsEncrypt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(854, 501);
+            this.Controls.Add(this.CBCertList);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnRenewCert);
+            this.Controls.Add(this.btnValidateCert);
+            this.Controls.Add(this.btnGetCertList);
             this.Controls.Add(this.btnLoginServer);
             this.Controls.Add(this.groupBox1);
             this.Name = "LetsEncrypt";
@@ -126,10 +140,11 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox rtbResults;
         private System.Windows.Forms.Button btnLoginServer;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnGetCertList;
+        private System.Windows.Forms.Button btnValidateCert;
+        private System.Windows.Forms.Button btnRenewCert;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.ComboBox CBCertList;
     }
 }
 

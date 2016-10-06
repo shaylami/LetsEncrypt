@@ -17,13 +17,13 @@ namespace LetsEncrypt
     public partial class Login : Form
     {
         LogWriter logi = new LogWriter();
-        string machine = "1232";
-        string userName="test";
-        string password = "123";
+        string machine;
+        string userName;
+        string password;
+        string port;
         public Login()
         {
             InitializeComponent();
-            tbServer.Text = machine;
             ReadXML();
             CheckUser();
             
@@ -92,15 +92,17 @@ namespace LetsEncrypt
             {
                 xmlDoc.Load("Server.xml");
                 XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("/Table/Server");
-                string ServerId = "", ServerName = "",User="" ,Password = "";
+                string ServerId = "", ServerName = "",Port="" ,User="" ,Password = "";
                 foreach (XmlNode node in nodeList)
                 {
                     ServerId = node.SelectSingleNode("Server_ID").InnerText;
                     ServerName = node.SelectSingleNode("Server_Name").InnerText;
+                    Port = node.SelectSingleNode("Server_port").InnerText;
                     User = node.SelectSingleNode("User_Name").InnerText;
                     Password = node.SelectSingleNode("Password").InnerText;
                 }
                 tbServer.Text = ServerName;
+                tbport.Text = Port;
                 tbMuser.Text = User;
                 tbMPwd.Text = Password;
 
@@ -112,6 +114,7 @@ namespace LetsEncrypt
             machine = tbServer.Text;
             userName = tbMuser.Text;
             password = tbMPwd.Text;
+            port = tbport.Text;
             EncryptPWD = Convert.ToBase64String(Encoding.Unicode.GetBytes(password));
             XmlTextWriter writer = new XmlTextWriter("Server.xml", System.Text.Encoding.UTF8);
             writer.WriteStartDocument(true);
@@ -119,12 +122,12 @@ namespace LetsEncrypt
             writer.Indentation = 2;
             writer.WriteStartElement("Table");
             //createNode("1",machine ,userName, EncryptPWD, writer);
-            createNode("1", tbServer.Text, userName, EncryptPWD, writer);
+            createNode("1", machine,port, userName, EncryptPWD, writer);
             writer.WriteEndElement();
             writer.WriteEndDocument();
             writer.Close();
         }
-        private void createNode(string pID, string pSName,string Usr ,string pwd,XmlTextWriter writer)
+        private void createNode(string pID, string pSName,string port, string Usr ,string pwd,XmlTextWriter writer)
         {
             writer.WriteStartElement("Server");
             writer.WriteStartElement("Server_ID");
@@ -132,6 +135,9 @@ namespace LetsEncrypt
             writer.WriteEndElement();
             writer.WriteStartElement("Server_Name");
             writer.WriteString(pSName);
+            writer.WriteEndElement();
+            writer.WriteStartElement("Server_port");
+            writer.WriteString(port);
             writer.WriteEndElement();
             writer.WriteStartElement("User_Name");
             writer.WriteString(Usr);
@@ -143,25 +149,29 @@ namespace LetsEncrypt
 
         private void tbSave_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Please be noted that empty row will delete the current data", "Are you sure ?", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            try
             {
-                tbServer.Clear();
-                tbMuser.Clear();
-                tbMPwd.Clear();
-                ServerSet();
-                ReadXML();
-                checkIPResponse();
-                MessageBox.Show("Machine IP/Hostname & User Password was set successfully \n");
-                logi.LogMessage("Machine IP/Hostname & User Password was set successfully \n");
-                
+                DialogResult dialogResult = MessageBox.Show("Please be noted that empty row will delete the current data", "Are you sure ?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    ServerSet();
+                    ReadXML();
+                    checkIPResponse();
+                    MessageBox.Show("Machine IP/Hostname & User Password was set successfully \n");
+                    logi.LogMessage("Machine IP/Hostname & User Password was set successfully \n");
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    tbServer.Clear();
+                    tbMuser.Clear();
+                    tbMPwd.Clear();
+                    MessageBox.Show("Machine IP/Host & User Password was Unset \n");
+                }
             }
-            else if (dialogResult == DialogResult.No)
+            catch (Exception ex)
             {
-                tbServer.Clear();
-                tbMuser.Clear();
-                tbMPwd.Clear();
-                MessageBox.Show("Machine IP/Host & User Password was Unset \n");
+                logi.LogMessage("save server " + ex.Message);
             }
         }
     }

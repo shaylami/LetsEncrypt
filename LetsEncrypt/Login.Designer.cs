@@ -35,6 +35,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tbServer = new System.Windows.Forms.TextBox();
+            this.tbport = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbSave
@@ -93,14 +95,32 @@
             // 
             this.tbServer.Location = new System.Drawing.Point(16, 58);
             this.tbServer.Name = "tbServer";
-            this.tbServer.Size = new System.Drawing.Size(202, 20);
+            this.tbServer.Size = new System.Drawing.Size(145, 20);
             this.tbServer.TabIndex = 7;
+            // 
+            // tbport
+            // 
+            this.tbport.Location = new System.Drawing.Point(168, 58);
+            this.tbport.Name = "tbport";
+            this.tbport.Size = new System.Drawing.Size(50, 20);
+            this.tbport.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(165, 41);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Port :";
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(254, 261);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.tbport);
             this.Controls.Add(this.tbServer);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -124,5 +144,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbServer;
+        private System.Windows.Forms.TextBox tbport;
+        private System.Windows.Forms.Label label4;
     }
 }
