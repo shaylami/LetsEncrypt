@@ -16,6 +16,7 @@ using System.Xml;
 using System.Security.Cryptography;
 using System.Security.Permissions;
 using System.Net;
+using System.Threading;
 
 namespace LetsEncrypt
 {
@@ -26,8 +27,24 @@ namespace LetsEncrypt
         public LetsEncrypt()
         {
             InitializeComponent();
+            RichTextBox.CheckForIllegalCrossThreadCalls = false;
             logfile();
             ReadXML();
+        }
+        /// <summary>
+        /// after adding IP/Host in settings form it restart the application to read the xml files with the ip/host
+        /// </summary>
+        public void ReloadIP()
+        {
+            try
+            {
+                //MessageBox.Show("Please wait Application is loading Information");
+                Application.Restart();
+            }
+            catch (Exception ex)
+            {
+                logi.LogMessage("Reload IP data error " + ex.Message);
+            }
         }
         private void logfile()
         {
@@ -81,7 +98,6 @@ namespace LetsEncrypt
                 sport = Port;
                 suser = User;
                 spwd = DecryptPWD;
-
             }
         }
 
@@ -92,7 +108,9 @@ namespace LetsEncrypt
 
         private void btnRenewCert_Click(object sender, EventArgs e)
         {
-            RenewCertDomain();
+            var thread = new Thread(() => RenewCertDomain());
+            thread.Start();
+            //RenewCertDomain();
         }
         private void RenewCertDomain()
         {
@@ -218,7 +236,9 @@ namespace LetsEncrypt
         }
         private void btnGetCertList_Click(object sender, EventArgs e)
         {
-            GetCertList();
+            var thread = new Thread(() => GetCertList());
+            thread.Start();
+            //GetCertList();
         }
     }
 }

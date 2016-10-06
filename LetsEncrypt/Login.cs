@@ -146,7 +146,21 @@ namespace LetsEncrypt
             writer.WriteString(pwd);
             writer.WriteEndElement();
         }
-
+        /// <summary>
+        /// after adding IP/Host in settings form it restart the application to read the xml files with the ip/host
+        /// </summary>
+        public void ReloadIP()
+        {
+            try
+            {
+                //MessageBox.Show("Please wait Application is loading Information");
+                Application.Restart();
+            }
+            catch (Exception ex)
+            {
+                logi.LogMessage("Reload IP data error " + ex.Message);
+            }
+        }
         private void tbSave_Click(object sender, EventArgs e)
         {
             try
@@ -159,7 +173,7 @@ namespace LetsEncrypt
                     checkIPResponse();
                     MessageBox.Show("Machine IP/Hostname & User Password was set successfully \n");
                     logi.LogMessage("Machine IP/Hostname & User Password was set successfully \n");
-
+                    ReloadIP();
                 }
                 else if (dialogResult == DialogResult.No)
                 {

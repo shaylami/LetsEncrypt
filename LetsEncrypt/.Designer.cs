@@ -169,6 +169,7 @@
             this.Controls.Add(this.btnGetCertList);
             this.Controls.Add(this.btnLoginServer);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LetsEncrypt";
             this.Text = "Lets Encrypt";
             this.groupBox1.ResumeLayout(false);

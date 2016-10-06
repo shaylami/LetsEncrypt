@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.tbSave = new System.Windows.Forms.Button();
             this.tbMuser = new System.Windows.Forms.TextBox();
             this.tbMPwd = new System.Windows.Forms.TextBox();
@@ -128,6 +129,7 @@
             this.Controls.Add(this.tbMPwd);
             this.Controls.Add(this.tbMuser);
             this.Controls.Add(this.tbSave);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
             this.Text = "Login";
             this.ResumeLayout(false);
