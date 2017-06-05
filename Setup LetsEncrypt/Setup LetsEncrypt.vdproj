@@ -104,6 +104,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
     }
@@ -312,7 +320,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:solveit.co.il"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_9014802368DB4153B7D5F9BDB91751D3"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -426,7 +434,7 @@
             "Target" = "8:_260C490EF03B4757A32E2C7CBAA0B444"
             "Folder" = "8:_3C4D14FE97D043CCB20DC65F161E7538"
             "WorkingFolder" = "8:_7C4567DDA0AE4FF28E23827B4EB73583"
-            "Icon" = "8:"
+            "Icon" = "8:_9014802368DB4153B7D5F9BDB91751D3"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C1BEBFF60FA646D887982B2DEAC4D0B7"
@@ -440,7 +448,7 @@
             "Target" = "8:_260C490EF03B4757A32E2C7CBAA0B444"
             "Folder" = "8:_92F8E76989CB478EBA101FE97C8E42D8"
             "WorkingFolder" = "8:_7C4567DDA0AE4FF28E23827B4EB73583"
-            "Icon" = "8:"
+            "Icon" = "8:_9014802368DB4153B7D5F9BDB91751D3"
             "Feature" = "8:"
             }
         }
