@@ -431,7 +431,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C1BEBFF60FA646D887982B2DEAC4D0B7"
             {
-            "Name" = "8:LetsEncrypt (Active)"
+            "Name" = "8:Lets Encrypt"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
